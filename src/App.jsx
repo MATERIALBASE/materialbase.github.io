@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
+import { ThemeProvider } from './contexts/ThemeContext'
 import Navbar from './components/Navbar'
 import Home from './pages/Home'
 import Semesters from './pages/Semesters'
@@ -43,21 +44,23 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Navbar />
-      <AnimatePresence mode="wait">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/semesters" element={<Semesters />} />
-          <Route path="/semester/:id" element={<SemesterDetail />} />
-          <Route path="/papers" element={<Papers />} />
-          <Route path="/calendar" element={<Calendar />} />
-        </Routes>
-      </AnimatePresence>
-      <Footer />
-      <TermsModal isOpen={showTerms} onAccept={handleAcceptTerms} />
-      <CalendarNotification />
-    </div>
+    <ThemeProvider>
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+        <Navbar />
+        <AnimatePresence mode="wait">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/semesters" element={<Semesters />} />
+            <Route path="/semester/:id" element={<SemesterDetail />} />
+            <Route path="/papers" element={<Papers />} />
+            <Route path="/calendar" element={<Calendar />} />
+          </Routes>
+        </AnimatePresence>
+        <Footer />
+        <TermsModal isOpen={showTerms} onAccept={handleAcceptTerms} />
+        <CalendarNotification />
+      </div>
+    </ThemeProvider>
   )
 }
 
