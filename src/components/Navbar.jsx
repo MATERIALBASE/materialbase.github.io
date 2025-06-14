@@ -3,12 +3,15 @@ import { Link, useLocation } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Menu, X, BookOpen, Calendar, FileText, Calculator, Users, Moon, Sun } from 'lucide-react'
 import { useTheme } from '../contexts/ThemeContext'
+import { useAuth } from '../contexts/AuthContext'
+import UserProfile from './UserProfile'
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const location = useLocation()
   const { isDark, toggleTheme } = useTheme()
+  const { isAuthenticated } = useAuth()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -114,15 +117,27 @@ const Navbar = () => {
               )}
             </motion.button>
 
-            {/* Hall Plan Button */}
-            <a
-              href="https://sas.sastra.edu/hallplan/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-primary"
-            >
-              Hall Plan
-            </a>
+            {/* Authentication Section */}
+            {isAuthenticated ? (
+              <UserProfile />
+            ) : (
+              <div className="flex items-center space-x-4">
+                <Link
+                  to="/login"
+                  className="text-gray-700 dark:text-gray-300 hover:text-primary transition-colors duration-200"
+                >
+                  Sign In
+                </Link>
+                <a
+                  href="https://sas.sastra.edu/hallplan/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-primary"
+                >
+                  Hall Plan
+                </a>
+              </div>
+            )}
           </div>
 
           {/* Mobile menu button */}
@@ -141,6 +156,18 @@ const Navbar = () => {
                 <Moon className="w-5 h-5" />
               )}
             </motion.button>
+
+            {/* Mobile User Profile or Sign In */}
+            {isAuthenticated ? (
+              <UserProfile />
+            ) : (
+              <Link
+                to="/login"
+                className="text-sm text-gray-700 dark:text-gray-300 hover:text-primary transition-colors duration-200"
+              >
+                Sign In
+              </Link>
+            )}
 
             <button
               onClick={() => setIsOpen(!isOpen)}
