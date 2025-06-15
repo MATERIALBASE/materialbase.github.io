@@ -59,13 +59,13 @@ const CalendarManager = () => {
 
   const getEventTypeColor = (type) => {
     switch (type) {
-      case 'exam': return 'bg-red-100 text-red-800 border-red-200 dark:bg-red-900/30 dark:text-red-300 dark:border-red-700'
-      case 'academic': return 'bg-blue-100 text-blue-800 border-blue-200 dark:bg-blue-900/30 dark:text-blue-300 dark:border-blue-700'
-      case 'registration': return 'bg-green-100 text-green-800 border-green-200 dark:bg-green-900/30 dark:text-green-300 dark:border-green-700'
-      case 'holiday': return 'bg-purple-100 text-purple-800 border-purple-200 dark:bg-purple-900/30 dark:text-purple-300 dark:border-purple-700'
-      case 'working-saturday': return 'bg-orange-100 text-orange-800 border-orange-200 dark:bg-orange-900/30 dark:text-orange-300 dark:border-orange-700'
-      case 'compensatory-holiday': return 'bg-teal-100 text-teal-800 border-teal-200 dark:bg-teal-900/30 dark:text-teal-300 dark:border-teal-700'
-      default: return 'bg-gray-100 text-gray-800 border-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600'
+      case 'exam': return 'bg-red-100 text-red-800 border-red-200'
+      case 'academic': return 'bg-blue-100 text-blue-800 border-blue-200'
+      case 'registration': return 'bg-green-100 text-green-800 border-green-200'
+      case 'holiday': return 'bg-purple-100 text-purple-800 border-purple-200'
+      case 'working-saturday': return 'bg-orange-100 text-orange-800 border-orange-200'
+      case 'compensatory-holiday': return 'bg-teal-100 text-teal-800 border-teal-200'
+      default: return 'bg-gray-100 text-gray-800 border-gray-200'
     }
   }
 
@@ -74,15 +74,15 @@ const CalendarManager = () => {
     const isToday = date.toDateString() === new Date().toDateString()
     const isSelected = selectedDate && date.toDateString() === selectedDate.toDateString()
 
-    if (isSelected) return 'bg-purple-50 border-purple-300 dark:bg-purple-900/30 dark:border-purple-600'
-    if (isToday) return 'bg-blue-50 border-blue-300 dark:bg-blue-900/30 dark:border-blue-600'
+    if (isSelected) return 'bg-purple-50 border-purple-300'
+    if (isToday) return 'bg-blue-50 border-blue-300'
 
     switch (dayType) {
-      case 'working-saturday': return 'bg-orange-50 border-orange-200 dark:bg-orange-900/20 dark:border-orange-700'
-      case 'compensatory-holiday': return 'bg-teal-50 border-teal-200 dark:bg-teal-900/20 dark:border-teal-700'
-      case 'holiday': return 'bg-purple-50 border-purple-200 dark:bg-purple-900/20 dark:border-purple-700'
-      case 'weekend': return 'bg-gray-50 border-gray-200 dark:bg-gray-800 dark:border-gray-600'
-      default: return 'border-gray-200 hover:bg-gray-50 dark:border-gray-600 dark:hover:bg-gray-800'
+      case 'working-saturday': return 'bg-orange-50 border-orange-200'
+      case 'compensatory-holiday': return 'bg-teal-50 border-teal-200'
+      case 'holiday': return 'bg-purple-50 border-purple-200'
+      case 'weekend': return 'bg-gray-50 border-gray-200'
+      default: return 'border-gray-200 hover:bg-gray-50'
     }
   }
 
@@ -90,14 +90,14 @@ const CalendarManager = () => {
     const dayType = getDayType(date)
     const isToday = date.toDateString() === new Date().toDateString()
 
-    if (isToday) return 'text-blue-600 font-bold dark:text-blue-400'
+    if (isToday) return 'text-blue-600 font-bold'
 
     switch (dayType) {
-      case 'working-saturday': return 'text-orange-700 font-semibold dark:text-orange-300'
-      case 'compensatory-holiday': return 'text-teal-700 font-semibold dark:text-teal-300'
-      case 'holiday': return 'text-purple-700 font-semibold dark:text-purple-300'
-      case 'weekend': return 'text-gray-500 dark:text-gray-400'
-      default: return 'text-gray-800 dark:text-gray-200'
+      case 'working-saturday': return 'text-orange-700 font-semibold'
+      case 'compensatory-holiday': return 'text-teal-700 font-semibold'
+      case 'holiday': return 'text-purple-700 font-semibold'
+      case 'weekend': return 'text-gray-500'
+      default: return 'text-gray-800'
     }
   }
 
@@ -175,8 +175,8 @@ const CalendarManager = () => {
     return (
       <div className="text-center py-12">
         <AlertCircle className="w-16 h-16 text-red-500 mx-auto mb-4" />
-        <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-2">Calendar Unavailable</h3>
-        <p className="text-gray-600 dark:text-gray-300">Failed to load calendar data</p>
+        <h3 className="text-xl font-semibold text-gray-800 mb-2">Calendar Unavailable</h3>
+        <p className="text-gray-600">Failed to load calendar data</p>
       </div>
     )
   }
@@ -193,8 +193,8 @@ const CalendarManager = () => {
         animate={{ opacity: 1, y: 0 }}
         className={`p-4 rounded-lg border ${
           isRecent 
-            ? 'bg-green-50 border-green-200 text-green-800 dark:bg-green-900/30 dark:border-green-700 dark:text-green-300' 
-            : 'bg-yellow-50 border-yellow-200 text-yellow-800 dark:bg-yellow-900/30 dark:border-yellow-700 dark:text-yellow-300'
+            ? 'bg-green-50 border-green-200 text-green-800' 
+            : 'bg-yellow-50 border-yellow-200 text-yellow-800'
         }`}
       >
         <div className="flex items-center space-x-2">
@@ -219,46 +219,46 @@ const CalendarManager = () => {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4 border dark:border-gray-700"
+        className="bg-white rounded-lg shadow-sm p-4 border"
       >
-        <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">Calendar Legend</h3>
+        <h3 className="text-sm font-semibold text-gray-700 mb-3">Calendar Legend</h3>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 text-xs">
           <div className="flex items-center space-x-2">
-            <div className="w-4 h-4 bg-orange-100 border border-orange-200 rounded dark:bg-orange-900/30 dark:border-orange-700"></div>
-            <span className="text-orange-700 dark:text-orange-300">Working Saturday</span>
+            <div className="w-4 h-4 bg-orange-100 border border-orange-200 rounded"></div>
+            <span className="text-orange-700">Working Saturday</span>
           </div>
           <div className="flex items-center space-x-2">
-            <div className="w-4 h-4 bg-teal-100 border border-teal-200 rounded dark:bg-teal-900/30 dark:border-teal-700"></div>
-            <span className="text-teal-700 dark:text-teal-300">Compensatory Holiday</span>
+            <div className="w-4 h-4 bg-teal-100 border border-teal-200 rounded"></div>
+            <span className="text-teal-700">Compensatory Holiday</span>
           </div>
           <div className="flex items-center space-x-2">
-            <div className="w-4 h-4 bg-purple-100 border border-purple-200 rounded dark:bg-purple-900/30 dark:border-purple-700"></div>
-            <span className="text-purple-700 dark:text-purple-300">Holiday</span>
+            <div className="w-4 h-4 bg-purple-100 border border-purple-200 rounded"></div>
+            <span className="text-purple-700">Holiday</span>
           </div>
           <div className="flex items-center space-x-2">
-            <div className="w-4 h-4 bg-gray-100 border border-gray-200 rounded dark:bg-gray-700 dark:border-gray-600"></div>
-            <span className="text-gray-700 dark:text-gray-300">Weekend</span>
+            <div className="w-4 h-4 bg-gray-100 border border-gray-200 rounded"></div>
+            <span className="text-gray-700">Weekend</span>
           </div>
           <div className="flex items-center space-x-2">
-            <div className="w-4 h-4 bg-blue-100 border border-blue-200 rounded dark:bg-blue-900/30 dark:border-blue-700"></div>
-            <span className="text-blue-700 dark:text-blue-300">Today</span>
+            <div className="w-4 h-4 bg-blue-100 border border-blue-200 rounded"></div>
+            <span className="text-blue-700">Today</span>
           </div>
           <div className="flex items-center space-x-2">
-            <div className="w-4 h-4 bg-white border border-gray-300 rounded dark:bg-gray-800 dark:border-gray-600"></div>
-            <span className="text-gray-700 dark:text-gray-300">Working Day</span>
+            <div className="w-4 h-4 bg-white border border-gray-300 rounded"></div>
+            <span className="text-gray-700">Working Day</span>
           </div>
         </div>
       </motion.div>
 
       {/* View Toggle */}
       <div className="flex justify-center">
-        <div className="bg-gray-100 dark:bg-gray-700 rounded-lg p-1 flex">
+        <div className="bg-gray-100 rounded-lg p-1 flex">
           <button
             onClick={() => setViewMode('calendar')}
             className={`px-4 py-2 rounded-md transition-colors duration-200 ${
               viewMode === 'calendar' 
-                ? 'bg-white text-primary shadow-sm dark:bg-gray-600 dark:text-blue-400' 
-                : 'text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-gray-100'
+                ? 'bg-white text-primary shadow-sm' 
+                : 'text-gray-600 hover:text-gray-800'
             }`}
           >
             Calendar View
@@ -267,8 +267,8 @@ const CalendarManager = () => {
             onClick={() => setViewMode('list')}
             className={`px-4 py-2 rounded-md transition-colors duration-200 ${
               viewMode === 'list' 
-                ? 'bg-white text-primary shadow-sm dark:bg-gray-600 dark:text-blue-400' 
-                : 'text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-gray-100'
+                ? 'bg-white text-primary shadow-sm' 
+                : 'text-gray-600 hover:text-gray-800'
             }`}
           >
             List View
@@ -283,7 +283,7 @@ const CalendarManager = () => {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 20 }}
-            className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden"
+            className="bg-white rounded-2xl shadow-xl overflow-hidden"
           >
             {/* Calendar Header */}
             <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-6 text-white">
@@ -314,7 +314,7 @@ const CalendarManager = () => {
               {/* Day Headers */}
               <div className="grid grid-cols-7 gap-1 mb-4">
                 {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
-                  <div key={day} className="p-3 text-center text-sm font-medium text-gray-500 dark:text-gray-400">
+                  <div key={day} className="p-3 text-center text-sm font-medium text-gray-500">
                     {day}
                   </div>
                 ))}
@@ -361,7 +361,7 @@ const CalendarManager = () => {
                           </div>
                         ))}
                         {dayEvents.length > (dayType === 'working-saturday' || dayType === 'compensatory-holiday' ? 1 : 2) && (
-                          <div className="text-xs text-gray-500 dark:text-gray-400">
+                          <div className="text-xs text-gray-500">
                             +{dayEvents.length - (dayType === 'working-saturday' || dayType === 'compensatory-holiday' ? 1 : 2)} more
                           </div>
                         )}
@@ -377,10 +377,10 @@ const CalendarManager = () => {
               <motion.div
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: 'auto' }}
-                className="border-t bg-gray-50 dark:bg-gray-700 p-6"
+                className="border-t bg-gray-50 p-6"
               >
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-lg font-semibold text-gray-800 dark:text-white">
+                  <h3 className="text-lg font-semibold text-gray-800">
                     {formatDate(selectedDate.toISOString())}
                   </h3>
                   <span className={`text-sm px-3 py-1 rounded-full ${getEventTypeColor(getDayType(selectedDate))}`}>
@@ -390,15 +390,15 @@ const CalendarManager = () => {
                 
                 <div className="space-y-3">
                   {getEventsForDate(selectedDate).map(event => (
-                    <div key={event.id} className="bg-white dark:bg-gray-600 rounded-lg p-4 shadow-sm">
+                    <div key={event.id} className="bg-white rounded-lg p-4 shadow-sm">
                       <div className="flex items-start space-x-3">
                         <div className={`p-2 rounded-lg ${getEventTypeColor(event.type)}`}>
                           {getEventTypeIcon(event.type)}
                         </div>
                         <div className="flex-1">
-                          <h4 className="font-medium text-gray-800 dark:text-white">{event.title}</h4>
-                          <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">{event.description}</p>
-                          <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
+                          <h4 className="font-medium text-gray-800">{event.title}</h4>
+                          <p className="text-sm text-gray-600 mt-1">{event.description}</p>
+                          <p className="text-xs text-gray-500 mt-2">
                             {formatDate(event.startDate)} 
                             {event.startDate !== event.endDate && ` - ${formatDate(event.endDate)}`}
                           </p>
@@ -407,7 +407,7 @@ const CalendarManager = () => {
                     </div>
                   ))}
                   {getEventsForDate(selectedDate).length === 0 && (
-                    <p className="text-gray-500 dark:text-gray-400 text-center py-4">No events on this date</p>
+                    <p className="text-gray-500 text-center py-4">No events on this date</p>
                   )}
                 </div>
               </motion.div>
@@ -422,24 +422,24 @@ const CalendarManager = () => {
             className="space-y-6"
           >
             {/* Upcoming Events */}
-            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6">
-              <h3 className="text-2xl font-bold text-gray-800 dark:text-white mb-6">Upcoming Events</h3>
+            <div className="bg-white rounded-2xl shadow-xl p-6">
+              <h3 className="text-2xl font-bold text-gray-800 mb-6">Upcoming Events</h3>
               <div className="space-y-4">
                 {upcomingEvents.map(event => (
                   <motion.div
                     key={event.id}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors duration-200"
+                    className="bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition-colors duration-200"
                   >
                     <div className="flex items-start space-x-4">
                       <div className={`p-3 rounded-lg ${getEventTypeColor(event.type)}`}>
                         {getEventTypeIcon(event.type)}
                       </div>
                       <div className="flex-1">
-                        <h4 className="font-semibold text-gray-800 dark:text-white text-lg">{event.title}</h4>
-                        <p className="text-gray-600 dark:text-gray-300 mt-1">{event.description}</p>
-                        <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
+                        <h4 className="font-semibold text-gray-800 text-lg">{event.title}</h4>
+                        <p className="text-gray-600 mt-1">{event.description}</p>
+                        <p className="text-sm text-gray-500 mt-2">
                           {formatDate(event.startDate)}
                           {event.startDate !== event.endDate && ` - ${formatDate(event.endDate)}`}
                         </p>
@@ -464,17 +464,17 @@ const CalendarManager = () => {
                 if (typeEvents.length === 0) return null
                 
                 return (
-                  <div key={type} className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
-                    <h4 className="text-xl font-bold text-gray-800 dark:text-white mb-4 flex items-center space-x-2">
+                  <div key={type} className="bg-white rounded-xl shadow-lg p-6">
+                    <h4 className="text-xl font-bold text-gray-800 mb-4 flex items-center space-x-2">
                       {getEventTypeIcon(type)}
                       <span>{typeTitle}</span>
                     </h4>
                     <div className="space-y-3">
                       {typeEvents.map(event => (
-                        <div key={event.id} className="border-l-4 border-gray-200 dark:border-gray-600 pl-4 py-2">
-                          <h5 className="font-medium text-gray-800 dark:text-white">{event.title}</h5>
-                          <p className="text-sm text-gray-600 dark:text-gray-300">{event.description}</p>
-                          <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                        <div key={event.id} className="border-l-4 border-gray-200 pl-4 py-2">
+                          <h5 className="font-medium text-gray-800">{event.title}</h5>
+                          <p className="text-sm text-gray-600">{event.description}</p>
+                          <p className="text-xs text-gray-500 mt-1">
                             {formatDate(event.startDate)}
                             {event.startDate !== event.endDate && ` - ${formatDate(event.endDate)}`}
                           </p>
