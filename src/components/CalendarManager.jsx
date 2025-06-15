@@ -9,21 +9,9 @@ import {
   GraduationCap,
   Coffee,
   AlertCircle,
-  CheckCircle,
-  Briefcase,
-  Home,
-  CalendarX
+  CheckCircle
 } from 'lucide-react'
-import { 
-  getCurrentCalendar, 
-  isCalendarRecent, 
-  getEventsForMonth, 
-  getUpcomingEvents,
-  isWorkingSaturday,
-  isCompensatoryHoliday,
-  isRegularWeekend,
-  getDayType
-} from '../data/calendarConfig'
+import { getCurrentCalendar, isCalendarRecent, getEventsForMonth, getUpcomingEvents } from '../data/calendarConfig'
 
 const CalendarManager = () => {
   const [calendar, setCalendar] = useState(null)
@@ -51,8 +39,6 @@ const CalendarManager = () => {
       case 'academic': return <BookOpen className="w-4 h-4" />
       case 'registration': return <Clock className="w-4 h-4" />
       case 'holiday': return <Coffee className="w-4 h-4" />
-      case 'working-saturday': return <Briefcase className="w-4 h-4" />
-      case 'compensatory-holiday': return <Home className="w-4 h-4" />
       default: return <CalendarIcon className="w-4 h-4" />
     }
   }
@@ -63,41 +49,7 @@ const CalendarManager = () => {
       case 'academic': return 'bg-blue-100 text-blue-800 border-blue-200'
       case 'registration': return 'bg-green-100 text-green-800 border-green-200'
       case 'holiday': return 'bg-purple-100 text-purple-800 border-purple-200'
-      case 'working-saturday': return 'bg-orange-100 text-orange-800 border-orange-200'
-      case 'compensatory-holiday': return 'bg-teal-100 text-teal-800 border-teal-200'
       default: return 'bg-gray-100 text-gray-800 border-gray-200'
-    }
-  }
-
-  const getDayBackgroundColor = (date) => {
-    const dayType = getDayType(date)
-    const isToday = date.toDateString() === new Date().toDateString()
-    const isSelected = selectedDate && date.toDateString() === selectedDate.toDateString()
-
-    if (isSelected) return 'bg-purple-50 border-purple-300'
-    if (isToday) return 'bg-blue-50 border-blue-300'
-
-    switch (dayType) {
-      case 'working-saturday': return 'bg-orange-50 border-orange-200'
-      case 'compensatory-holiday': return 'bg-teal-50 border-teal-200'
-      case 'holiday': return 'bg-purple-50 border-purple-200'
-      case 'weekend': return 'bg-gray-50 border-gray-200'
-      default: return 'border-gray-200 hover:bg-gray-50'
-    }
-  }
-
-  const getDayTextColor = (date) => {
-    const dayType = getDayType(date)
-    const isToday = date.toDateString() === new Date().toDateString()
-
-    if (isToday) return 'text-blue-600 font-bold'
-
-    switch (dayType) {
-      case 'working-saturday': return 'text-orange-700 font-semibold'
-      case 'compensatory-holiday': return 'text-teal-700 font-semibold'
-      case 'holiday': return 'text-purple-700 font-semibold'
-      case 'weekend': return 'text-gray-500'
-      default: return 'text-gray-800'
     }
   }
 
@@ -152,17 +104,6 @@ const CalendarManager = () => {
     })
   }
 
-  const getDayTypeLabel = (date) => {
-    const dayType = getDayType(date)
-    switch (dayType) {
-      case 'working-saturday': return 'Working Saturday'
-      case 'compensatory-holiday': return 'Compensatory Holiday'
-      case 'holiday': return 'Holiday'
-      case 'weekend': return 'Weekend'
-      default: return 'Working Day'
-    }
-  }
-
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
@@ -212,41 +153,6 @@ const CalendarManager = () => {
           <span className="text-sm opacity-75">
             Last updated: {new Date(calendar.lastUpdated).toLocaleDateString()}
           </span>
-        </div>
-      </motion.div>
-
-      {/* Legend for Day Types */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="bg-white rounded-lg shadow-sm p-4 border"
-      >
-        <h3 className="text-sm font-semibold text-gray-700 mb-3">Calendar Legend</h3>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 text-xs">
-          <div className="flex items-center space-x-2">
-            <div className="w-4 h-4 bg-orange-100 border border-orange-200 rounded"></div>
-            <span className="text-orange-700">Working Saturday</span>
-          </div>
-          <div className="flex items-center space-x-2">
-            <div className="w-4 h-4 bg-teal-100 border border-teal-200 rounded"></div>
-            <span className="text-teal-700">Compensatory Holiday</span>
-          </div>
-          <div className="flex items-center space-x-2">
-            <div className="w-4 h-4 bg-purple-100 border border-purple-200 rounded"></div>
-            <span className="text-purple-700">Holiday</span>
-          </div>
-          <div className="flex items-center space-x-2">
-            <div className="w-4 h-4 bg-gray-100 border border-gray-200 rounded"></div>
-            <span className="text-gray-700">Weekend</span>
-          </div>
-          <div className="flex items-center space-x-2">
-            <div className="w-4 h-4 bg-blue-100 border border-blue-200 rounded"></div>
-            <span className="text-blue-700">Today</span>
-          </div>
-          <div className="flex items-center space-x-2">
-            <div className="w-4 h-4 bg-white border border-gray-300 rounded"></div>
-            <span className="text-gray-700">Working Day</span>
-          </div>
         </div>
       </motion.div>
 
@@ -324,34 +230,33 @@ const CalendarManager = () => {
               <div className="grid grid-cols-7 gap-1">
                 {days.map((day, index) => {
                   if (!day) {
-                    return <div key={index} className="p-3 h-28"></div>
+                    return <div key={index} className="p-3 h-24"></div>
                   }
 
                   const dayEvents = getEventsForDate(day)
-                  const dayType = getDayType(day)
+                  const isToday = day.toDateString() === new Date().toDateString()
+                  const isSelected = selectedDate && day.toDateString() === selectedDate.toDateString()
 
                   return (
                     <motion.div
                       key={day.toISOString()}
                       whileHover={{ scale: 1.02 }}
                       onClick={() => setSelectedDate(day)}
-                      className={`p-2 h-28 border rounded-lg cursor-pointer transition-all duration-200 ${getDayBackgroundColor(day)}`}
-                      title={getDayTypeLabel(day)}
+                      className={`p-2 h-24 border rounded-lg cursor-pointer transition-all duration-200 ${
+                        isToday 
+                          ? 'bg-blue-50 border-blue-300' 
+                          : isSelected
+                          ? 'bg-purple-50 border-purple-300'
+                          : 'border-gray-200 hover:bg-gray-50'
+                      }`}
                     >
-                      <div className={`text-sm font-medium mb-1 ${getDayTextColor(day)}`}>
+                      <div className={`text-sm font-medium mb-1 ${
+                        isToday ? 'text-blue-600' : 'text-gray-800'
+                      }`}>
                         {day.getDate()}
                       </div>
-                      
-                      {/* Day type indicator */}
-                      {(dayType === 'working-saturday' || dayType === 'compensatory-holiday') && (
-                        <div className={`text-xs px-1 py-0.5 rounded mb-1 ${getEventTypeColor(dayType)} truncate`}>
-                          {dayType === 'working-saturday' ? 'Working' : 'Comp. Holiday'}
-                        </div>
-                      )}
-                      
-                      {/* Events */}
                       <div className="space-y-1">
-                        {dayEvents.slice(0, dayType === 'working-saturday' || dayType === 'compensatory-holiday' ? 1 : 2).map(event => (
+                        {dayEvents.slice(0, 2).map(event => (
                           <div
                             key={event.id}
                             className={`text-xs px-1 py-0.5 rounded border ${getEventTypeColor(event.type)} truncate`}
@@ -360,9 +265,9 @@ const CalendarManager = () => {
                             {event.title}
                           </div>
                         ))}
-                        {dayEvents.length > (dayType === 'working-saturday' || dayType === 'compensatory-holiday' ? 1 : 2) && (
+                        {dayEvents.length > 2 && (
                           <div className="text-xs text-gray-500">
-                            +{dayEvents.length - (dayType === 'working-saturday' || dayType === 'compensatory-holiday' ? 1 : 2)} more
+                            +{dayEvents.length - 2} more
                           </div>
                         )}
                       </div>
@@ -379,15 +284,9 @@ const CalendarManager = () => {
                 animate={{ opacity: 1, height: 'auto' }}
                 className="border-t bg-gray-50 p-6"
               >
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-lg font-semibold text-gray-800">
-                    {formatDate(selectedDate.toISOString())}
-                  </h3>
-                  <span className={`text-sm px-3 py-1 rounded-full ${getEventTypeColor(getDayType(selectedDate))}`}>
-                    {getDayTypeLabel(selectedDate)}
-                  </span>
-                </div>
-                
+                <h3 className="text-lg font-semibold text-gray-800 mb-4">
+                  Events on {formatDate(selectedDate.toISOString())}
+                </h3>
                 <div className="space-y-3">
                   {getEventsForDate(selectedDate).map(event => (
                     <div key={event.id} className="bg-white rounded-lg p-4 shadow-sm">
@@ -452,16 +351,9 @@ const CalendarManager = () => {
 
             {/* All Events by Category */}
             <div className="grid md:grid-cols-2 gap-6">
-              {['exam', 'academic', 'registration', 'holiday', 'working-saturday', 'compensatory-holiday'].map(type => {
+              {['exam', 'academic', 'registration', 'holiday'].map(type => {
                 const typeEvents = calendar.events.filter(event => event.type === type)
-                let typeTitle = type.charAt(0).toUpperCase() + type.slice(1)
-                if (type === 'working-saturday') typeTitle = 'Working Saturdays'
-                if (type === 'compensatory-holiday') typeTitle = 'Compensatory Holidays'
-                if (type !== 'working-saturday' && type !== 'compensatory-holiday') {
-                  typeTitle += 's'
-                }
-                
-                if (typeEvents.length === 0) return null
+                const typeTitle = type.charAt(0).toUpperCase() + type.slice(1) + 's'
                 
                 return (
                   <div key={type} className="bg-white rounded-xl shadow-lg p-6">
